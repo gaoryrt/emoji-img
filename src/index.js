@@ -1,39 +1,33 @@
 let skins = ["🏴", "🏴", "🦓", "🗻", "🐩", "🏳", "💭", "💭"];
-const emojisStr = document.querySelector('.input_emojis').value
-if (emojisStr.trim().split(/\s/g).length) {
-  skins = emojisStr.trim().split(/\s/g)
-}
-
-
 
 const config = {
   size: 1000,
   elementSize: 1,
-  elementCount: skins.length - 1,
+  get elementCount() { return skins.length - 1 },
   lineCount: 1000
 };
 
-function drawImage(indexArr) {
+function drawImage(indexArr, numPerLine) {
   let log = ''
   let sum = 0
   for (const [i, v] of indexArr.entries()) {
     log += skins[v || 0] + ' '
     sum += 1
-    if (sum === 42) {
+    if (sum === numPerLine) {
       log += '\n'
       sum = 0
     }
   }
-  console.log(log)
+  // console.log(log)
   document.querySelector('.img_wrapper').innerHTML = log
 }
 
-function render(imageData) {
+function render(imageData, numPerLine) {
   const worker = new Worker("worker.js");
   worker.postMessage([imageData, config]);
   // calculate the emojis
   worker.onmessage = function (e) {
-    drawImage(e.data);
+    drawImage(e.data, numPerLine);
   };
 }
 
@@ -60,6 +54,11 @@ function toImageData(bitmap, imgWidth, imgHeight, width) {
 async function onSubmit(e) {
   e.preventDefault();
   try {
+    const emojisStr = document.querySelector('.input_emojis').value
+    if (emojisStr) {
+      skins = emojisStr.trim().split(/\s/g)
+    }
+    console.log(skins)
     // Read File
     const fileReader = e.target.elements.file.files[0];
     const buffer = await new Response(fileReader).arrayBuffer();
@@ -68,9 +67,10 @@ async function onSubmit(e) {
     const imgUrl = URL.createObjectURL(blob)
     const img = new Image()
     const bitmap = await createImageBitmap(blob);
+    const numPerLine = +document.querySelector('.numPerLine').value
     img.onload = () => {
       // Get selected emoji
-      render(toImageData(bitmap, img.width, img.height, 42));
+      render(toImageData(bitmap, img.width, img.height, numPerLine), numPerLine);
     }
     img.src = imgUrl
   } catch (e) {

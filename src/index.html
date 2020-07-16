@@ -29,8 +29,19 @@
             <input name="file" class="input_file" type="file" />
           </label>
           <label>
-            <span>emojis from black to white:</span>
+            <span>staged emojis, split with space:</span>
             <input name="emojis" class="input_emojis" type="text" value="🏴 🦓 🗻 🐩 🏳 💭" />
+          </label>
+          <label>
+            <span>Emojis per line:</span>
+            <input
+              name="num"
+              class="numPerLine"
+              type="number"
+              max="100"
+              min="1"
+              value="42"
+            />
           </label>
           <button type="submit">Generate</button>
         </form>
