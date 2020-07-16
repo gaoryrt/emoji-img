@@ -11,7 +11,7 @@ It works 100% on the client side, so you don't need to be afraid that you data i
 
 ### 🏄‍♂️ Make it run
 
-You can find a live version here: https://img.loomaa.de/
+You can find a live version here: https://emoji-img.vercel.app/
 
 Or run it locally with
 ```
