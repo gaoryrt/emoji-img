@@ -15,5 +15,8 @@
   ],
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "color-convert": "^2.0.1"
+  }
 }

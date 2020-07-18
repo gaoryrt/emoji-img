@@ -1,24 +1,30 @@
-let skins = ["🏴", "🏴", "🦓", "🗻", "🐩", "🏳", "💭", "💭"];
+let skins = [
+  ['🏴', '🐝', '🏵️', '🐤', '💭'],
+  ['🏴', '🥬', '🥒', '🍏', '💭'],
+  ['🏴', '🦕', '🐋', '🌐', '💭'],
+  ['🏴', '🟦', '💙', '🔹', '💭'],
+  ['🏴', '🍆', '🔮', '🦄', '💭'],
+  ['🏴', '🟥', '🧧', '🔻', '💭'],
+];
 
 const config = {
   size: 1000,
-  elementSize: 1,
-  get elementCount() { return skins.length - 1 },
+  get hueCount() { return skins.length },
+  get lightnessCount() { return skins[0].length },
   lineCount: 1000
 };
 
 function drawImage(indexArr, numPerLine) {
   let log = ''
   let sum = 0
-  for (const [i, v] of indexArr.entries()) {
-    log += skins[v || 0] + ' '
+  indexArr.forEach(([h, l]) => {
+    log += skins[h][l] + ' '
     sum += 1
     if (sum === numPerLine) {
       log += '\n'
       sum = 0
     }
-  }
-  // console.log(log)
+  })
   document.querySelector('.img_wrapper').innerHTML = log
 }
 
@@ -54,12 +60,6 @@ function toImageData(bitmap, imgWidth, imgHeight, width) {
 async function onSubmit(e) {
   e.preventDefault();
   try {
-    const emojisStr = document.querySelector('.input_emojis').value
-    if (emojisStr) {
-      skins = emojisStr.trim().split(/\s/g)
-    }
-    console.log(skins)
-    // Read File
     const fileReader = e.target.elements.file.files[0];
     const buffer = await new Response(fileReader).arrayBuffer();
     const type = fileReader.name.endsWith(".png") ? "png" : "jpeg";
