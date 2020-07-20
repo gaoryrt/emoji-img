@@ -28,14 +28,13 @@
             <span>Image:</span>
             <input name="file" class="input_file" type="file" />
           </label>
-          <!-- <label>
-            <span>staged emojis, split with space:</span>
-            <input name="emojis" class="input_emojis" type="text" value="🏴 🦓 🗻 🐩 🏳 💭" />
-          </label> -->
+          <label>
+            <span>staged emojis</span>
+            <input name="emojis" class="input_emojis" type="text" value="🏴 🐝 🏵️ 🐤 🥬 🥒 🍏 🦕 🐋 🌐 🟦 💙 🔹 🍆 🔮 🦄 🟥 🧧 🔻 💭" />
+          </label>
           <label>
             <span>Emojis per line:</span>
             <input
-              name="num"
               class="numPerLine"
               type="number"
               max="100"
@@ -43,7 +42,19 @@
               value="36"
             />
           </label>
-          <button type="submit">Generate</button>
+          <label>
+            <span>offset red:</span>
+            <input type="range" id="offset_r" min="-255" max="255" step="1" value="0">
+          </label>
+          <label>
+            <span>offset green:</span>
+            <input type="range" id="offset_g" min="-255" max="255" step="1" value="0">
+          </label>
+          <label>
+            <span>offset blue:</span>
+            <input type="range" id="offset_b" min="-255" max="255" step="1" value="0">
+          </label>
+          <!-- <button type="submit">Generate</button> -->
         </form>
       </div>
       <pre>
